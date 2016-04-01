@@ -64,7 +64,7 @@ on createFotoAlbum(albumName, parentFolder)
 end createFotoAlbum
 
 on getImageList(aFolder)
-	set extensionsList to {"jpg", "png", "tiff", "JPG", "jpeg", "gif", "JPEG", "PNG", "TIFF", "GIF", "MOV", "mov", "MP4", "mp4", "MPG", "mpg", "BMP", "bmp", "TIF", "tif", "AVI", "avi", "PSD", "psd", "ai", "AI", "orf", "ORF", "nef", "NEF", "crw", "CRW", "cr2", "CR2", "dng", "DNG"}
+	set extensionsList to {"jpg", "png", "tiff", "JPG", "jpeg", "gif", "JPEG", "PNG", "TIFF", "GIF", "MOV", "mov", "MP4", "mp4", "MPG", "mpg", "BMP", "bmp", "TIF", "tif", "AVI", "avi", "PSD", "psd", "ai", "AI", "orf", "ORF", "nef", "NEF", "crw", "CRW", "cr2", "CR2", "dng", "DNG", "PEF"}
 	tell application "Finder" to set theFiles to every file of aFolder whose name extension is in extensionsList
 
 	set imageList to {}
