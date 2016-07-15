@@ -37,7 +37,7 @@ on importFotos(aFolder, albumName, parentFolder)
 	set fotoAlbum to createFotoAlbum(albumName, parentFolder)
 
 	tell application "Photos"
-		with timeout of 600 seconds
+		with timeout of (30 * 60) seconds
 			import imageList into fotoAlbum skip check duplicates no
 		end timeout
 	end tell
@@ -65,8 +65,9 @@ end createFotoAlbum
 
 on getImageList(aFolder)
 	set extensionsList to {"jpg", "png", "tiff", "JPG", "jpeg", "gif", "JPEG", "PNG", "TIFF", "GIF", "MOV", "mov", "MP4", "mp4", "MPG", "mpg", "BMP", "bmp", "TIF", "tif", "AVI", "avi", "PSD", "psd", "ai", "AI", "orf", "ORF", "nef", "NEF", "crw", "CRW", "cr2", "CR2", "dng", "DNG", "PEF"}
-	tell application "Finder" to set theFiles to every file of aFolder whose name extension is in extensionsList
-
+	with timeout of (30 * 60) seconds
+		tell application "Finder" to set theFiles to every file of aFolder whose name extension is in extensionsList
+	end timeout
 	set imageList to {}
 	repeat with i from 1 to number of items in theFiles
 		set thisItem to item i of theFiles as alias
