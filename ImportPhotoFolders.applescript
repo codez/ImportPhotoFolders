@@ -11,12 +11,33 @@ on run
 	end repeat
 end run
 
+to replaceText(someText, oldItem, newItem)
+    (*
+     replace all occurances of oldItem with newItem
+          parameters -     someText [text]: the text containing the item(s) to change
+                    oldItem [text, list of text]: the item to be replaced
+                    newItem [text]: the item to replace with
+          returns [text]:     the text with the item(s) replaced
+    *)
+	set {tempTID, AppleScript's text item delimiters} to {AppleScript's text item delimiters, oldItem}
+	try
+		set {itemList, AppleScript's text item delimiters} to {text items of someText, newItem}
+		set {someText, AppleScript's text item delimiters} to {itemList as text, tempTID}
+	on error errorMessage number errorNumber -- oops
+		set AppleScript's text item delimiters to tempTID
+		error errorMessage number errorNumber -- pass it on
+	end try
+
+	return someText
+end replaceText
+
 on importEachSubFolder(aFolder, parentFolder)
 	tell application "Finder"
 		set albumName to (name of aFolder as text)
 		set subFolders to every folder of aFolder
 	end tell
 
+--	set albumName to replaceText(albumName, "_", space)   --if you want to change a special character (such as _ ) to spaces in Album names, uncomment this line
 	if (count of subFolders) > 0 then
 		set fotoFolder to createFotoFolder(aFolder, albumName, parentFolder)
 
